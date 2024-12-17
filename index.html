@@ -2,13 +2,137 @@
 <html>
 <head>
     <title>My Fun Facts</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #4a148c);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .fact-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .fact {
+            font-size: 1.5rem;
+            margin: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .fact {
+                font-size: 1.2rem;
+            }
+            .btn {
+                font-size: 1rem;
+                padding: 0.8rem 1.6rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>✨ Fun Facts About Me ✨</h1>
-        <div id="factsContainer"></div>
+        <div class="fact-container">
+            <div id="factDisplay" class="fact"></div>
+        </div>
+        <button class="btn" onclick="showNextFact()">Show Next Fact 🎲</button>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const facts = [
+            "🏏 I play cricket and enjoy team sports!",
+            "📈 I am actively involved in trading in financial markets!",
+            "🏍️ I love riding bikes and exploring!",
+            "💝 I am a one-side lover!",
+            "🎯 I am ambitious and working towards being successful!"
+        ];
+
+        let currentFactIndex = -1;
+
+        function showNextFact() {
+            const factDisplay = document.getElementById('factDisplay');
+            factDisplay.style.opacity = 0;
+            
+            setTimeout(() => {
+                currentFactIndex = (currentFactIndex + 1) % facts.length;
+                factDisplay.textContent = facts[currentFactIndex];
+                factDisplay.style.opacity = 1;
+            }, 200);
+        }
+
+        // Show first fact on page load
+        showNextFact();
+    </script>
 </body>
 </html>
